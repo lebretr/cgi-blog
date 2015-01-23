@@ -1,0 +1,7 @@
+<div class="bs-example">
+	<h1 ng-bind-html="article.titre | surbrillanceRecherche:recherche"></h1>
+	<p ng-bind-html="article.corps | surbrillanceRecherche:recherche"></p>
+</div>
+<div class="highlight margin-bottom">
+	posté le {{article.date | date:"short"}} par {{article.auteur}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#/Commentaires/{{article.id}}">Commentaires: {{article.commentaires.length || 0}}</a>
+</div>
