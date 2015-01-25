@@ -1,0 +1,46 @@
+<div class="spacer">
+	<form name="formNouvelArticle">
+		<div class="row">
+			<div class="col-sm-12">
+			 	<tabset>
+				    <tab heading="Edit">
+				    	<br/>
+						<div class="row">
+							<div class="col-sm-2">
+								<H4>Générale</H4>
+								<chk-dossier ng-repeat="dossier in A" dossier="dossier" ng-model="nouvelArticle"></chk-dossier>
+								<H4>BT</H4>
+								<chk-dossier ng-repeat="dossier in B" dossier="dossier" ng-model="nouvelArticle"></chk-dossier>
+								<H4>Clients</H4>
+								<chk-dossier ng-repeat="dossier in C" dossier="dossier" ng-model="nouvelArticle"></chk-dossier>
+							</div>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon">Titre</span>
+									<input type="text" class="form-control" ng-model="nouvelArticle.titre"/>
+								</div>
+								<br/>
+								<textarea ui-tinymce="optionsTinyMce" rows="10" class="corpNouvelArticle" ng-model="nouvelArticle.corps"></textarea>
+							</div>
+						</div>
+				    </tab>
+				    <tab heading="Prévisualisation">
+				    	<br/>
+					    <contenu-article article="nouvelArticle"></contenu-article>
+				    </tab>
+				</tabset>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="spacer text-center">
+					<button class="btn btn-success" ng-click="clicEnregistrerArticle()">Poster</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="space">
+	DEBUG:
+	<pre>{{nouvelArticle | json}}</pre>
+</div>

@@ -1,0 +1,35 @@
+<div class="spacer">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="zero-clipboard"><span class="btn-clipboard with-example">Commenter</span></div>
+		    <contenu-article article="article"></contenu-article>
+		</div>
+	</div>
+	<!--div class="row">
+		<div class="col-sm-12">
+			<div ng-repeat="commentaire in article.commentaires | orderBy:id:true ">
+				<div class="bs-example">
+					<h1 ng-bind-html="commentaire.titre"></h1>
+					<p ng-bind-html="commentaire.corps"></p>
+				</div>
+				<div class="highlight">
+					commenté le {{commentaire.date | date:"short"}} par {{commentaire.auteur}}
+				</div>
+			</div>
+		</div>
+	</div-->
+	<table class="table">
+		<tr ng-repeat="commentaire in article.commentaires | orderBy:'id':false ">
+			<td>{{commentaire.id}}</td>
+			<td >
+				<div class="zero-clipboard"><span class="btn-clipboard with-example">Commenter</span></div>
+				<div class="bs-example">
+					<p ng-bind-html="commentaire.corps"></p>
+				</div>
+				<div class="highlight">
+					commenté le {{commentaire.date | date:"short"}} par {{commentaire.auteur}}
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

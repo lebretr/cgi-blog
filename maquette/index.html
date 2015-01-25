@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xlsns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+	<head>
+		<meta http-equi="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta http-equi="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="HandheldFriendly" content="true"/>
+
+		<title>CGI Blog</title>
+		<link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="./lib/bootstrap/css/bootstrap-theme.min.css"/>
+		<link rel="stylesheet" href="./css/style.css"/>
+		<!--[if lt IE 9]>
+			<script src="./lib/html5shiv/html5Shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body ng-app="CGIBlog" ng-controller="BlogController">
+
+		<div class="container">
+
+			<div id="branding" class="row">
+      			<div class="col-xs-12">
+		            <span id="logo"><a href="/" rel="home"><img src="./img/logo.png" alt="Home" title="Home"></a></span>
+                 	La force de l'engagement<sup>MD</sup>
+                </div>
+                 <div id="site-slogan" class="col-xs-10">
+                 </div>
+		    </div>
+
+			<!--Menu-->
+			<div class="spacer navbar">
+				<ul class="nav nav-pills navbar-left">
+					<li ng-repeat="dossier in A"
+						ng-class="{ active: dossier.valeur == dossierCourant.valeur }" ng-bind-html="navbarItem(dossier)">
+					</li>
+
+					<li class="dropdown" ng-class="{ active: 'BT' == dossierParentCourant.valeur }">
+						<a id="dBT" role="button" data-toggle="dropdown" data-target="#">BT <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dBT">
+							<li ng-repeat="ssdossier in dossiers['BT'].ssdossiers"
+								ng-class="{ active: ssdossier == dossierCourant }">
+								<a href="#BT/{{ssdossier.valeur}}">{{ssdossier.label}}</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="dropdown" ng-class="{ active: 'CLIENT' == dossierParentCourant.valeur }">
+						<a id="dClients" role="button" data-toggle="dropdown" data-target="#">Clients <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dBT">
+							<li ng-repeat="ssdossier in dossiers['CLIENT'].ssdossiers"
+								ng-class="{ active: ssdossier == dossierCourant }">
+								<a href="#CLIENT/{{ssdossier.valeur}}">{{ssdossier.label}}</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+				<ul class="nav nav-pills navbar-right">	
+					<li ng-class="{ active: vueAfficher=='NouvelArticle' }"><a href="#/nouvelArticle"><span class="glyphicon glyphicon-pencil"></span>Je Poste</a></li>
+				</ul>
+			</div>
+
+			<!--Nombre d'articles affichés-->
+			<!--div ng-show="vueAfficher=='Dossier'" class="alert alert-info">Il y a {{articleFiltres.length}} articles</div-->
+
+			<!--Barre de recherche-->
+			<div ng-show="vueAfficher=='Dossier'" class="spacer input-group">
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-search"></span>
+				</div>
+				<input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher un post..."/>
+				<div class="input-group-btn">
+					<button class="btn btn-default" ng-click="razRecherche()">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
+			</div>
+			<br ng-show="vueAfficher=='Dossier'" />
+
+			<!--Affichage des articles-->
+			<contenu-article ng-show="vueAfficher=='Dossier'" ng-repeat="article in articleFiltres = (dossierCourant.articles | filter:recherche) | orderBy:triChamp:triDesc" article="article" recherche="recherche"></contenu-article>
+
+			
+			<!--Affichage de l'ecran "Je Poste"-->
+			<nouvel-article ng-show="vueAfficher=='NouvelArticle'" a="A" b="B" c="C" enregistrer-article="enregistrerArticle(nouvelArticle)"></nouvel-article>
+
+			
+		</div>
+
+		<script type="text/javascript" src="./lib/jquery/jquery.min-1.10.2.js"></script>
+		<script type="text/javascript" src="./lib/tinymce/tinymce.min.js"></script>
+		<script type="text/javascript" src="./lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./lib/angular/angular.min.js"></script>
+		<script type="text/javascript" src="./lib/angular/angular-sanitize.min.js"></script>
+		<script type="text/javascript" src="./lib/angular/i18n/angular-locale_fr-fr.js"></script>
+		<script type="text/javascript" src="./lib/ui-tinymce/ui-tinymce.js"></script>
+		<script type="text/javascript" src="./app/app.js"></script>
+		<script type="text/javascript" src="./app/MesFiltres.js"></script>
+		<script type="text/javascript" src="./app/MesDirectives.js"></script>
+		<script type="text/javascript" src="./app/ArticleServiceMock.js"></script>
+
+
+		<script type="text/javascript">
+			$('.dropdown-toggle').dropdown();
+		</script>
+	</body>
+</html>
